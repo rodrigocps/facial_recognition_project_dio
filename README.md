@@ -1,4 +1,4 @@
-## PROJETO DIO - Sistema de Reconhecimento Facial (FaceNet + SVM)
+## PROJETO DIO - Desenvolvimento de Sistema de Reconhecimento Facial Multi-Pessoa
 
 ### Visão Geral
 
