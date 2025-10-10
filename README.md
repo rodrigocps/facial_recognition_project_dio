@@ -1,38 +1,38 @@
-## PROJETO DIO - Desenvolvimento de Sistema de Reconhecimento Facial Multi-Pessoa
+## DIO PROJECT - Development of a Multi-Person Facial Recognition System
 
-### Visão Geral
+### Overview
 
-Este projeto implementa um **sistema robusto de reconhecimento facial** desenvolvido para fins educacionais. Ele é construído sobre modelos de *deep learning* de ponta para detecção e extração de *embeddings* faciais, combinados com um classificador de *machine learning* clássico para a identificação.
+This project implements a **robust facial recognition system** developed for educational purposes. It is built upon state-of-the-art **deep learning** models for detection and facial **embedding** extraction, combined with a classical **machine learning** classifier for identification.
 
-O objetivo é identificar com precisão indivíduos conhecidos (cadastrados) em um conjunto de dados, tanto em imagens quanto em *streams* de vídeo. O sistema foi projetado para ser altamente confiável, tornando-o ideal para projetos institucionais ou escolares.
-
----
-
-### Como Funciona
-
-O processo de reconhecimento é dividido em duas fases principais: **Treinamento (Cadastro)** e **Reconhecimento (Previsão)**.
-
-#### 1. Fase de Treinamento:
-1.  **Detecção Facial (MTCNN):** O sistema processa o conjunto de dados de imagens, usando o modelo **MTCNN** (*Multi-task Cascaded Convolutional Networks*) para localizar e recortar com precisão os rostos em cada imagem.
-2.  **Extração de Embedding (FaceNet):** Os rostos recortados são alimentados no modelo **FaceNet**, que converte cada face em um vetor de 128 dimensões (o "embedding facial"). Este vetor representa matematicamente as características únicas do rosto do indivíduo.
-3.  **Classificação (SVM):** Estes *embeddings*, juntamente com o nome da pessoa (*label*), são usados para treinar um classificador **Support Vector Machine (SVM)**. O SVM aprende as fronteiras de separação entre as diferentes classes de pessoas no espaço de *embeddings*.
-4.  **Salvamento do Modelo:** O modelo SVM treinado e o *Label Encoder* (usado para mapear nomes para IDs numéricos) são salvos usando `pickle` para uso posterior.
-
-#### 2. Fase de Reconhecimento:
-1.  O sistema lê uma nova imagem ou quadro de vídeo.
-2.  **Detecção Facial e Embedding:** Ele repete os passos de detecção (MTCNN) e extração de *embedding* (FaceNet) na face desconhecida.
-3.  **Previsão:** O novo *embedding* facial é alimentado no **modelo SVM** salvo para prever a identidade.
-4.  **Verificação de Confiança:** A previsão é acompanhada por uma pontuação de confiança. Se a confiança exceder um limiar definido (por exemplo, 60%), a pessoa é identificada; caso contrário, ela é rotulada como "**Desconhecido**".
-5.  **Resultado:** O resultado (nome e confiança) é desenhado na imagem ou no quadro de vídeo.
+The goal is to accurately identify known (registered) individuals within a dataset, whether in images or video streams. The system is designed to be highly reliable, making it ideal for institutional or school projects.
 
 ---
 
-### Tecnologias e Bibliotecas
+### How It Works
 
-| Categoria | Tecnologia | Objetivo |
+The recognition process is split into two main phases: **Training (Registration/Enrollment)** and **Recognition (Prediction)**.
+
+#### 1. Training Phase:
+1.  **Facial Detection (MTCNN):** The system processes the image dataset, using the **MTCNN** (*Multi-task Cascaded Convolutional Networks*) model to precisely locate and crop the faces in each image.
+2.  **Embedding Extraction (FaceNet):** The cropped faces are fed into the **FaceNet** model, which converts each face into a 128-dimensional vector (the "facial embedding"). This vector mathematically represents the unique features of the individual's face.
+3.  **Classification (SVM):** These **embeddings**, along with the person's name (the *label*), are used to train a **Support Vector Machine (SVM)** classifier. The SVM learns the separation boundaries between the different person classes in the embedding space.
+4.  **Model Saving:** The trained SVM model and the **Label Encoder** (used to map names to numerical IDs) are saved using `pickle` for later use.
+
+#### 2. Recognition Phase:
+1.  The system reads a new image or video frame.
+2.  **Facial Detection and Embedding:** It repeats the detection (MTCNN) and embedding extraction (FaceNet) steps on the unknown face.
+3.  **Prediction:** The new facial embedding is fed into the saved **SVM model** to predict the identity.
+4.  **Confidence Check:** The prediction is accompanied by a confidence score. If the confidence exceeds a defined **threshold** (e.g., 60%), the person is identified; otherwise, they are labeled as "**Unknown**".
+5.  **Result:** The result (name and confidence) is drawn onto the image or video frame.
+
+---
+
+### Technologies and Libraries
+
+| Category | Technology | Purpose |
 | :--- | :--- | :--- |
-| **Deep Learning** | **FaceNet** (via `keras-facenet`) | Extrai os *embeddings* faciais exclusivos de 128 dimensões. |
-| **Detecção Facial** | **MTCNN** (*Multi-task CNN*) | Detecta e localiza rostos de forma robusta em imagens e quadros de vídeo. |
-| **Machine Learning** | **Support Vector Machine (SVM)** | O classificador principal usado para distinguir entre diferentes identidades com base nos *embeddings*. |
-| **Processamento de Imagem** | **OpenCV (`cv2`)** | Lida com o carregamento, redimensionamento, conversão BGR/RGB e desenho de caixas delimitadoras/texto. |
-| **Essenciais** | **NumPy, Scikit-learn, Pickle** | Usados para manipulação de *arrays*, codificação de *labels* e salvamento/carregamento de modelos. |
+| **Deep Learning** | **FaceNet** (via `keras-facenet`) | Extracts the unique 128-dimensional facial **embeddings**. |
+| **Facial Detection** | **MTCNN** (*Multi-task CNN*) | Robustly detects and localizes faces in images and video frames. |
+| **Machine Learning** | **Support Vector Machine (SVM)** | The core classifier used to distinguish between different identities based on the embeddings. |
+| **Image Processing** | **OpenCV (`cv2`)** | Handles loading, resizing, BGR/RGB conversion, and drawing bounding boxes/text. |
+| **Essentials** | **NumPy, Scikit-learn, Pickle** | Used for array manipulation, label encoding, and saving/loading models. |
