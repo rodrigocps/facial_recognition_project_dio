@@ -1,4 +1,4 @@
-# Sistema de Reconhecimento Facial Inteligente
+# Sistema de Reconhecimento Facial
 
 ## Visão Geral
 
